@@ -23,6 +23,8 @@ class CustomUser(AbstractUser):
         unique=True,
     )
 
+    to_read = models.ManyToManyField('catalog.Book')
+
     USERNAME_FIELD = 'username'
 
     def __str__(self):
