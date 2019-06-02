@@ -1,0 +1,11 @@
+<p>{{ book.title }}</p>
+<p>{{ book.author }}</p>
+{% if review_list %}
+  <ul>
+  {% for review in review_list %}
+    <li>{{ review.comment }}</li>
+  {% endfor %}
+  </ul>
+{% else %}
+  <p>No reviews are available.</p>
+{% endif %}

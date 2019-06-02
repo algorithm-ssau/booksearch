@@ -1,0 +1,12 @@
+<p>{{ book.title }}</p>
+<p>{{ book.author }}</p>
+{% if last_review_list %}
+  <ul>
+  {% for review in last_review_list %}
+    <li>{{ review.comment }}</li>
+  {% endfor %}
+  </ul>
+  <p><a href="{% url 'all_reviews' book.id %}">show all reviews</a></p>
+{% else %}
+  <p>No reviews are available for this book.</p>
+{% endif %}
