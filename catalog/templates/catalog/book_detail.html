@@ -3,10 +3,22 @@
 {% if last_review_list %}
   <ul>
   {% for review in last_review_list %}
-    <li>{{ review.comment }}</li>
+    <li>{{ review.rating }} - {{ review.comment }} - {{ review.custom_user.username  }}</li>
   {% endfor %}
   </ul>
   <p><a href="{% url 'all_reviews' book.id %}">show all reviews</a></p>
 {% else %}
   <p>No reviews are available for this book.</p>
+{% endif %}
+<p><a href="{% url 'book_comment' book.id %}">leave a comment</a></p>
+{% if flag %}
+  <form action="{% url 'remove_from_reading_list' book.id %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Remove from reading list</button>
+  </form>
+{% else %}
+  <form action="{% url 'add_to_reading_list' book.id %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Add to reading list</button>
+  </form>
 {% endif %}

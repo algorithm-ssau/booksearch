@@ -3,9 +3,10 @@
 {% if review_list %}
   <ul>
   {% for review in review_list %}
-    <li>{{ review.comment }}</li>
+    <li>{{ review.rating }} - {{ review.comment }} - {{ review.custom_user.username  }}</li>
   {% endfor %}
   </ul>
 {% else %}
   <p>No reviews are available.</p>
 {% endif %}
+<p><a href="{% url 'book_comment' book.id %}">leave a comment</a></p>

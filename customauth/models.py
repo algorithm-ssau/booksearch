@@ -23,7 +23,7 @@ class CustomUser(AbstractUser):
         unique=True,
     )
 
-    to_read = models.ManyToManyField('catalog.Book')
+    to_read = models.ManyToManyField('catalog.Book', blank=True)
 
     USERNAME_FIELD = 'username'
 
