@@ -8,7 +8,6 @@ urlpatterns = [
     path('author/<int:author_id>/', views.author_detail, name='author_detail'),
     path('author/<int:author_id>/', views.author_detail, name='author_detail'),
     path('book/<int:book_id>/all_reviews/', views.all_reviews, name='all_reviews'),
-    path('book/<int:book_id>/book_comment/', views.book_comment, name='book_comment'),
     path('book/<int:book_id>/add_to_reading_list/', views.add_to_reading_list, name='add_to_reading_list'),
     path('book/<int:book_id>/remove_from_reading_list/', views.remove_from_reading_list, name='remove_from_reading_list'),
 ]

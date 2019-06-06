@@ -1,6 +1,38 @@
 <p>{{ book.title }}</p>
 <p>{{ book.author }}</p>
+
+{% if user.is_authenticated %}
+  {% if flag %}
+    <form action="{% url 'remove_from_reading_list' book.id %}" method="post">
+      {% csrf_token %}
+      <button type="submit">Remove from reading list</button>
+    </form>
+  {% else %}
+    <form action="{% url 'add_to_reading_list' book.id %}" method="post">
+      {% csrf_token %}
+      <button type="submit">Add to reading list</button>
+    </form>
+  {% endif %}
+
+  {% if user_review is None %}
+    <p>Leave your comment:</p>
+    <form method="post">
+      {% csrf_token %}
+      <table>
+        {{ form }}
+      </table>
+      <button type="submit">Leave a comment</button>
+    </form>
+  {% else %}
+    <h4>Your comment</h4>
+    {{ user_review.rating }} - {{ user_review.comment }} - {{ user_review.custom_user.username  }}
+  {% endif %}
+{% else %}
+  <p><a href="{% url 'login' %}">Log in</a> to form your reading list or leave a comment!</p>
+{% endif %}
+
 {% if last_review_list %}
+  <h4>Comments</h4>
   <ul>
   {% for review in last_review_list %}
     <li>{{ review.rating }} - {{ review.comment }} - {{ review.custom_user.username  }}</li>
@@ -9,16 +41,4 @@
   <p><a href="{% url 'all_reviews' book.id %}">show all reviews</a></p>
 {% else %}
   <p>No reviews are available for this book.</p>
-{% endif %}
-<p><a href="{% url 'book_comment' book.id %}">leave a comment</a></p>
-{% if flag %}
-  <form action="{% url 'remove_from_reading_list' book.id %}" method="post">
-    {% csrf_token %}
-    <button type="submit">Remove from reading list</button>
-  </form>
-{% else %}
-  <form action="{% url 'add_to_reading_list' book.id %}" method="post">
-    {% csrf_token %}
-    <button type="submit">Add to reading list</button>
-  </form>
 {% endif %}
