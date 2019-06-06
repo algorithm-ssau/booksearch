@@ -1,6 +1,6 @@
 from django.urls import reverse_lazy
 from django.views import generic
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.decorators.cache import never_cache
 from .models import CustomUser
 
@@ -17,6 +17,16 @@ class ProfileChange(generic.UpdateView):
     success_url = reverse_lazy('index')
     template_name = 'profile_change.html'
 
+class ProfileDelete(generic.DeleteView):
+    model = CustomUser
+    success_url = reverse_lazy('index')
+    template_name = 'profile_delete.html'
+
+    def post(self, request, *args, **kwargs):
+        if "cancel" in request.POST:
+            return redirect(self.success_url)
+        else:
+            return super(ProfileDelete, self).post(request, *args, **kwargs)
 
 @never_cache
 def to_read(request):
