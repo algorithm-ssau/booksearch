@@ -3,19 +3,6 @@
 {% block title %}Homepage{% endblock %}
 
 {% block content %}
-{% if user.is_authenticated %}
-  <p>Hello, {{ user.username }}!</p>
-  <a href="{% url 'logout' %}">logout</a> |
-  <a href="{% url 'profile_change' user.id %}">edit profile</a> |
-  <a href="{% url 'password_change' %}">change password</a>
-  <p><a href="{% url 'to_read' %}">my reading list</a></p>
-{% else %}
-  <p>you are not logged in</p>
-  <a href="{% url 'login' %}">login</a> |
-  <a href="{% url 'signup' %}">signup</a>
-{% endif %}
-<p><a href="{% url 'all_books' %}">all books</a></p>
-<p><a href="{% url 'all_authors' %}">all authors</a></p>
 <h3>Recent book list</h3>
 {% if last_book_list %}
   <ul>

@@ -1,10 +1,35 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
-    <title>{% block title %}Authentication{% endblock %}</title>
+    <title>{% block title %}{% endblock %}</title>
   </head>
   <body>
+    <div class="header">
+      <h1>Booksearch</h1>
+    </div>
+    <div class="navbar">
+      <a href="{% url 'index' %}">Home</a>
+      <a href="{% url 'all_books' %}">All books</a>
+      <a href="{% url 'all_authors' %}">All authors</a>
+      {% if user.is_authenticated %}
+        <div class="dropdown" style="float:right;">
+          <button class="dropbtn">{{ user.username }}</button>
+          <div class="dropdown-content">
+            <a href="{% url 'profile_change' user.id %}">Edit profile</a>
+            <a href="{% url 'password_change' %}">Change password</a>
+            <a href="{% url 'logout' %}">Logout</a>
+          </div>
+        </div>
+        <a href="{% url 'to_read' %}" style="float:right;">My reading list</a>
+      {% else %}
+        <a href="{% url 'login' %}" class="right">Login</a>
+        <a href="{% url 'signup' %}" class="right">Signup</a>
+      {% endif %}
+    </div>
     <main>
         {% block content %}
         {% endblock %}
