@@ -1,9 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Book, Author, Review
 from .forms import ReviewForm
 
 def book_detail(request, book_id):
     book = Book.objects.get(pk=book_id)
+
     try:
         last_review_list = Review.objects.filter(book_id=book_id)[:5]
     except Review.DoesNotExist:
@@ -17,6 +18,7 @@ def book_detail(request, book_id):
 
     user_review = get_user_review(request, book_id)
     form = get_comment_form(request, book_id)
+    print (user_review)
     
     return render(request, 'catalog/book_detail.html', {'form' : form, 'book': book, 'last_review_list' : last_review_list, 'flag' : flag, 'user_review' : user_review})
 
@@ -83,7 +85,6 @@ def get_comment_form(request, book_id):
 
 def get_user_review(request, book_id):
     try:
-        user_review = Review.objects.get(custom_user_id=request.user.id, book_id=book_id)
+        return Review.objects.get(custom_user_id=request.user.id, book_id=book_id)
     except Review.DoesNotExist:
-        user_review = None
-    return user_review
+        return None

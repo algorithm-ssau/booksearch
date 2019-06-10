@@ -1,31 +1,66 @@
-<p>{{ book.title }}</p>
-<p>{{ book.author }}</p>
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'catalog/book-detail-style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'customauth/form-style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <p>{{ book.title }}</p>
+  <p>{{ book.author }}</p>
+  {% for genre in book.genre.all %}
+    {% if forloop.last %}
+      <span class="text">{{ genre }}</span>
+    {% else %}
+      <span class="text">{{ genre }}, </span>
+    {% endif %}
+  {% endfor %}
+  <p class="text">{{ book.category }}</p>
+</div>
 
 {% if user.is_authenticated %}
   {% if flag %}
     <form action="{% url 'remove_from_reading_list' book.id %}" method="post">
       {% csrf_token %}
-      <button type="submit">Remove from reading list</button>
+      <button type="submit" class="btn">Remove from reading list</button>
     </form>
   {% else %}
     <form action="{% url 'add_to_reading_list' book.id %}" method="post">
       {% csrf_token %}
-      <button type="submit">Add to reading list</button>
+      <button type="submit" class="btn">Add to reading list</button>
     </form>
   {% endif %}
 
   {% if user_review is None %}
     <p>Leave your comment:</p>
-    <form method="post">
+      <form method="post">
       {% csrf_token %}
-      <table>
-        {{ form }}
-      </table>
-      <button type="submit">Leave a comment</button>
+      {% for error in form.non_field_errors %}
+        <p class="error-msg">{{ error|escape }}</p>
+      {% endfor %}
+      {% for field in form %}
+        <div class="field-wrapper">
+          {{ field.label }}:
+          {{ field }}
+          {% if field.help_text %}
+            <span class="help-text">{{ field.help_text|safe }}</span>
+          {% endif %}
+          {% for error in field.errors %}
+            <p class="error-msg">{{ error|escape }}</p>
+          {% endfor %}
+        </div>
+      {% endfor %}
+      <button type="submit" class="btn-success">Leave a comment</button>
     </form>
   {% else %}
     <h4>Your comment</h4>
-    {{ user_review.rating }} - {{ user_review.comment }} - {{ user_review.custom_user.username  }}
+    <div class="comment-box">
+      <p><b>{{ user_review.custom_user.username  }}</b>: {{ user_review.rating }}</p>
+      <p>{{ user_review.comment }}</p>
+    </div>
   {% endif %}
 {% else %}
   <p><a href="{% url 'login' %}">Log in</a> to form your reading list or leave a comment!</p>
@@ -33,12 +68,14 @@
 
 {% if last_review_list %}
   <h4>Comments</h4>
-  <ul>
   {% for review in last_review_list %}
-    <li>{{ review.rating }} - {{ review.comment }} - {{ review.custom_user.username  }}</li>
+    <div class="comment-box">
+      <p><b>{{ review.custom_user.username  }}</b>: {{ review.rating }}</p>
+      <p>{{ review.comment }}</p>
+    </div>
   {% endfor %}
-  </ul>
   <p><a href="{% url 'all_reviews' book.id %}">show all reviews</a></p>
 {% else %}
   <p>No reviews are available for this book.</p>
 {% endif %}
+{% endblock %}
