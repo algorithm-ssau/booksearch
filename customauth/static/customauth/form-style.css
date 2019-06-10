@@ -1,0 +1,22 @@
+.btn-success {
+  margin-top: 15px;
+  border: none;
+  padding: 7px 14px;
+  background-color: #4CAF50;
+  color: white;
+}
+
+.btn-success:hover {background-color: #46a049;}
+
+.field-wrapper {
+  margin-top: 15px;
+}
+
+.error-msg {
+  color: red;
+}
+
+.help-text {
+  color: grey;
+  font-size: small;
+}

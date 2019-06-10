@@ -1,14 +1,41 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block title %}Login{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'customauth/form-style.css' %}">
+{% endblock %}
 
 {% block content %}
 <h2>Login</h2>
 <form method="post">
   {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Login</button>
+  {% for error in form.non_field_errors %}
+    <p class="error-msg">{{ error|escape }}</p>
+  {% endfor %}
+  <div class="field-wrapper">
+    <label for="{{ form.username.id_for_label }}">Username or email:</label>
+    {{ form.username }}
+    {% if form.username.help_text %}
+      <span class="help-text">{{ form.username.help_text|safe }}</span>
+    {% endif %}
+    {% for error in form.username.errors %}
+      <p class="error-msg">{{ error|escape }}</p>
+    {% endfor %}
+  </div>
+  <div class="field-wrapper">
+    <label for="{{ form.password.id_for_label }}">Password:</label>
+    {{ form.password }}
+    {% if form.password.help_text %}
+      <span class="help-text">{{ form.password.help_text|safe }}</span>
+    {% endif %}
+    {% for error in form.password.errors %}
+      <p class="error-msg">{{ error|escape }}</p>
+    {% endfor %}
+  </div>
+  <button type="submit" class="btn-success">Login</button>
 </form>
 <p><a href="{% url 'password_reset' %}">forgot password?</a></p>
-
 {% endblock %}
