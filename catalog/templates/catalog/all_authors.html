@@ -1,3 +1,9 @@
+{% extends 'base.html' %}
+
+{% block title %}All authors{% endblock %}
+
+{% block content %}
+
 {% if author_list %}
   <ul>
   {% for author in author_list %}
@@ -7,3 +13,5 @@
 {% else %}
   <p>No authors are available.</p>
 {% endif %}
+
+{% endblock %}

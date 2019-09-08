@@ -1,3 +1,9 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ author }}{% endblock %}
+
+{% block content %}
+
 <p>{{ author }}</p>
 {% if book_list %}
   <ul>
@@ -8,3 +14,5 @@
 {% else %}
   <p>No books are available.</p>
 {% endif %}
+
+{% endblock %}

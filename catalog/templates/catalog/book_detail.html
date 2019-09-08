@@ -2,6 +2,8 @@
 
 {% load static %}
 
+{% block title %}{{ book.title }}{% endblock %}
+
 {% block head %}
 <link rel="stylesheet" type="text/css" href="{% static 'catalog/book-detail-style.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'customauth/form-style.css' %}">
