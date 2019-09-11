@@ -19,7 +19,7 @@ class Author(models.Model):
     biography = models.TextField(default='', blank=True)
 
     def __str__(self):
-        return f'{self.first_name}, {self.last_name}'
+        return f'{self.last_name}, {self.first_name} ({self.birth_date.year})'
 
 class Genre(models.Model):
     genre_name = models.CharField(max_length=30, unique=True)
@@ -60,7 +60,7 @@ class Review(models.Model):
     ]
     rating = models.IntegerField(choices=RATING_CHOICES, default=5)
     comment = models.TextField(default='', blank=True)
-    
+
     class Meta:
         unique_together = ('book', 'custom_user')
 

@@ -19,7 +19,7 @@ def book_detail(request, book_id):
     user_review = get_user_review(request, book_id)
     form = get_comment_form(request, book_id)
     print (user_review)
-    
+
     return render(request, 'catalog/book_detail.html', {'form' : form, 'book': book, 'last_review_list' : last_review_list, 'flag' : flag, 'user_review' : user_review})
 
 def author_detail(request, author_id):
@@ -31,11 +31,11 @@ def author_detail(request, author_id):
     return render(request, 'catalog/author_detail.html', {'author': author, 'book_list': book_list})
 
 def all_books(request):
-    book_list = Book.objects.all()
+    book_list = Book.objects.order_by('title').all()
     return render(request, 'catalog/all_books.html', {'book_list': book_list})
 
 def all_authors(request):
-    author_list = Author.objects.all()
+    author_list = Author.objects.order_by('last_name').all()
     return render(request, 'catalog/all_authors.html', {'author_list': author_list})
 
 def all_reviews(request, book_id):
@@ -47,7 +47,7 @@ def all_reviews(request, book_id):
 
     user_review = get_user_review(request, book_id)
     form = get_comment_form(request, book_id)
-    
+
     return render(request, 'catalog/all_reviews.html', {'form' : form, 'book': book, 'review_list' : review_list, 'user_review' : user_review})
 
 def index(request):
