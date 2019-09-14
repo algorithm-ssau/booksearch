@@ -1,6 +1,13 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block title %}All authors{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'catalog/author-list-style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'customauth/form-style.css' %}">
+{% endblock %}
 
 {% block content %}
 

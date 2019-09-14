@@ -1,9 +1,17 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block title %}All books{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'catalog/book-list-style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'customauth/form-style.css' %}">
+{% endblock %}
 
 {% block content %}
 
+<p>Test Text</p>
 {% if book_list %}
   <ul>
   {% for book in book_list %}
@@ -13,6 +21,5 @@
 {% else %}
   <p>No books are available.</p>
 {% endif %}
-
 
 {% endblock %}
