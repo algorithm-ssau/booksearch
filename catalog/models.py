@@ -44,7 +44,7 @@ class Book(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     annotation = models.TextField(default='', blank=True)
     rewiews = models.ManyToManyField(CustomUser, through='Review')
-    img = models.ImageField(upload_to='images/', null = True, blank = True, height_field=200, width_field=100)
+    image = models.ImageField(upload_to='images/', null = True, blank = True)#, height_field=200, width_field=100)
 
     def __str__(self):
         return self.title

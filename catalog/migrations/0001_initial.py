@@ -33,6 +33,7 @@ class Migration(migrations.Migration):
                 ('original_title', models.CharField(blank=True, default='', max_length=120)),
                 ('annotation', models.TextField(blank=True, default='')),
                 ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='catalog.Author')),
+                ('image', models.ImageField(upload_to='images', null = True, blank = True)),# height_field=200, width_field=100)),
             ],
         ),
         migrations.CreateModel(
@@ -86,8 +87,8 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='book',
-            name='image',
-            field=models.ImageField(upload_to='images/', null = True, blank = True, height_field=200, width_field=100),
+            name='images',
+            field=models.ManyToManyField(through='catalog.Review', to=settings.AUTH_USER_MODEL),
         ),
         migrations.AddField(
             model_name='author',

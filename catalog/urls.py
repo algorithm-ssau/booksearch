@@ -1,5 +1,8 @@
 from django.urls import path
 from . import views
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     path('all_books/', views.all_books, name='all_books'),
@@ -11,3 +14,5 @@ urlpatterns = [
     path('book/<int:book_id>/add_to_reading_list/', views.add_to_reading_list, name='add_to_reading_list'),
     path('book/<int:book_id>/remove_from_reading_list/', views.remove_from_reading_list, name='remove_from_reading_list'),
 ]
+if settings.DEBUG:
+    urlpatterns+=staticfiles_urlpatterns()+static(settings.MEDIA_UR_, document_root=settings.MEDIA_ROOT)

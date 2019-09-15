@@ -10,6 +10,13 @@
 {% endblock %}
 
 {% block content %}
+
+<div>
+{% if book.image %}
+<img src="{{book.image.url}}" alt="Здесь могла быть ваша обложка">
+{% endif %}
+</div>
+
 <div class="container">
   <p>{{ book.title }}</p>
   <p>{{ book.author }}</p>
