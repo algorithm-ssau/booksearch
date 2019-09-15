@@ -85,6 +85,11 @@ class Migration(migrations.Migration):
             field=models.ManyToManyField(through='catalog.Review', to=settings.AUTH_USER_MODEL),
         ),
         migrations.AddField(
+            model_name='book',
+            name='image',
+            field=models.ImageField(upload_to='images/', null = True, blank = True, height_field=200, width_field=100),
+        ),
+        migrations.AddField(
             model_name='author',
             name='country',
             field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='catalog.Country'),
