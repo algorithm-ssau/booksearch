@@ -33,7 +33,7 @@ class Migration(migrations.Migration):
                 ('original_title', models.CharField(blank=True, default='', max_length=120)),
                 ('annotation', models.TextField(blank=True, default='')),
                 ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='catalog.Author')),
-                ('image', models.ImageField(upload_to='images', null = True, blank = True)),# height_field=200, width_field=100)),
+                ('image', models.ImageField(blank=True, null=True, upload_to='images', help_text='150x150px', verbose_name='Ссылка картинки')),# height_field=200, width_field=100)),
             ],
         ),
         migrations.CreateModel(

@@ -44,10 +44,18 @@ class Book(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     annotation = models.TextField(default='', blank=True)
     rewiews = models.ManyToManyField(CustomUser, through='Review')
-    image = models.ImageField(upload_to='images/', null = True, blank = True)#, height_field=200, width_field=100)
+    image = models.ImageField(blank=True, upload_to='images', null=True, help_text='150x150px', verbose_name='Ссылка картинки')#, height_field=200, width_field=100)
 
     def __str__(self):
         return self.title
+
+    def image_img(self):
+        if self.image:
+            return u'<a href="{0}" target="_blank"><img src="{0}" width="100"/></a>'.format(self.image.url)
+        else:
+            return '(Нет изображения)'
+    image_img.short_description = 'Картинка'
+    image_img.allow_tags = True
 
 class Review(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)

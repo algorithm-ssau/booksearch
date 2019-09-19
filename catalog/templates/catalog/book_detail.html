@@ -13,7 +13,7 @@
 
 <div>
 {% if book.image %}
-<img src="{{book.image.url}}" alt="Здесь могла быть ваша обложка">
+<img src="../../{{MEDIA_URL}}{{book.image.url}}" alt="Здесь могла быть ваша обложка" width=10% height=10%/>
 {% endif %}
 </div>
 
