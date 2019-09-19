@@ -5,11 +5,15 @@
 {% block content %}
 <h3>Recent book list</h3>
 {% if last_book_list %}
-  <ul>
   {% for book in last_book_list %}
-    <li><a href="{% url 'book_detail' book.id %}">{{ book.title }}</a></li>
+  <div style="float:left; width:20%; overflow:hidden; height:400px; text-align:center;">
+    {% if book.image %}
+    <a href="{% url 'book_detail' book.id %}"><img src="../catalog/{{MEDIA_URL}}{{book.image.url}}" alt="Здесь могла быть ваша обложка" width=150px height=250px/></a>
+    {% endif %}
+    <a href="{% url 'book_detail' book.id %}"></br>{{ book.title }}</a>
+    <p>{{book.annotation}}</p>
+  </div>
   {% endfor %}
-  </ul>
 {% else %}
   <p>No books are available.</p>
 {% endif %}

@@ -11,13 +11,18 @@
 
 {% block content %}
 
-<p>Test Text</p>
 {% if book_list %}
-  <ul>
   {% for book in book_list %}
-    <li><a href="{% url 'book_detail' book.id %}">{{ book.title }}</a></li>
+    <div style="float:left; width:19%; overflow:hidden; height:400px; text-align:center; margin-top:20px;">
+      {% if book.image %}
+      <a href="{% url 'book_detail' book.id %}"><img src="../{{MEDIA_URL}}{{book.image.url}}" alt="Здесь могла быть ваша обложка" width=150px height=250px/></a>
+      {% endif %}
+      <a href="{% url 'book_detail' book.id %}"></br>{{ book.title }}</a>
+      <a href="{% url 'author_detail' book.author.id %}"></br>{{ book.author }}</a>
+      <p>{{book.annotation}}</p>
+    </div>
+
   {% endfor %}
-  </ul>
 {% else %}
   <p>No books are available.</p>
 {% endif %}
