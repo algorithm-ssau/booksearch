@@ -13,13 +13,12 @@
 
 {% if book_list %}
   {% for book in book_list %}
-    <div style="float:left; width:19%; overflow:hidden; height:400px; text-align:center; margin-top:20px;">
+    <div style="float:left; width:33.3%; overflow:hidden; height:300px; text-align:center; margin-top:20px;">
       {% if book.image %}
       <a href="{% url 'book_detail' book.id %}"><img src="../{{MEDIA_URL}}{{book.image.url}}" alt="Здесь могла быть ваша обложка" width=150px height=250px/></a>
       {% endif %}
       <a href="{% url 'book_detail' book.id %}"></br>{{ book.title }}</a>
       <a href="{% url 'author_detail' book.author.id %}"></br>{{ book.author }}</a>
-      <p>{{book.annotation}}</p>
     </div>
 
   {% endfor %}
