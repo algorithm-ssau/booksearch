@@ -17,6 +17,7 @@ class Author(models.Model):
     death_date = models.DateField(default=None, null=True, blank=True)
     country =  models.ForeignKey(Country, on_delete=models.CASCADE)
     biography = models.TextField(default='', blank=True)
+    image = models.ImageField(blank=True, upload_to='images', null=True, help_text='150x150px', verbose_name='Ссылка картинки')
 
     def __str__(self):
         return f'{self.last_name}, {self.first_name} ({self.birth_date.year})'

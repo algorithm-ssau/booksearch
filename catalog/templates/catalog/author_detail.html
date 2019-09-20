@@ -11,6 +11,10 @@
 
 {% block content %}
 
+{% if author.image %}
+<img src="../../{{MEDIA_URL}}{{author.image.url}}" alt="Здесь могла быть ваша обложка" width=150px height=200px/>
+{% endif %}
+
 <p>{{ author }}</p>
 {% if book_list %}
   <ul>
