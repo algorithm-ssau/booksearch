@@ -1,3 +1,6 @@
+{% extends 'base.html' %}
+
+{% block content %}
 {% if reading_list %}
   <ul>
   {% for book in reading_list %}
@@ -7,3 +10,4 @@
 {% else %}
   <p>No books are in your reading list.</p>
 {% endif %}
+{% endblock %}
